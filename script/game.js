@@ -3,8 +3,14 @@
 let board = ["", "", "", "", "", "", "", "", "",];
 let playerTime = 0;
 let symbols = ["o", "x"];
+let contadorg = 0;
+let contadorc = 0;
+
 let gameOver = false;
-let resultado = document.getElementById("finish"); 
+let resultado = document.getElementById("finish");
+let cntg = document.getElementById("cntg");
+let cntc = document.getElementById("cntc");
+
 let winStates = [
     [0, 1, 2],
     [3, 4, 5],
@@ -25,15 +31,12 @@ function handleMove(position) {
 
         gameOver = isWin();
         if (!gameOver) {
-           playerTime = (playerTime == 0)? 1: 0;
+            playerTime = (playerTime == 0) ? 1 : 0;
         }
     }
 }
 
-
-
 function isWin() {
-   
     for (let i = 0; i < winStates.length; i++) {
         let seq = winStates[i];
         let pos1 = seq[0];
@@ -45,16 +48,25 @@ function isWin() {
             board[pos1] != '') {
             return setTimeout(() => {
                 let winner = playerTime + 1;
-                if(winner == 1){
-                   resultado.innerHTML = "Guitarra ganhou o jogo";
-                }else{
-                    resultado.innerHTML = "Controle ganhou o jogo";
-                }
-               
+                counter(winner);
             }, 10), true;
         } else {
             false;
         }
     }
+}
 
+
+function counter(winner) {
+    if (winner == 1) {
+        contadorg++;
+        cntg.innerHTML = `${contadorg}`;
+        resultado.innerHTML = "Guitarra ganhou o jogo";
+    }
+    if (winner == 2) {
+        contadorc++;
+        cntc.innerHTML = `${contadorc}`;
+        resultado.innerHTML = "Controle ganhou o jogo";
+
+    }
 }
